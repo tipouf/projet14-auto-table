@@ -9,8 +9,6 @@ type Order = { [key: string]: 'asc' | 'desc' | null };
   
 const Table = ( { list }: { list: TableList[] }) => {
 
-    console.log("kiusa", list)
-
       const [order, setOrder] = useState<Order>(() => {
         const orderObj: Order = {};
         if (list.length > 0) {
@@ -75,7 +73,7 @@ const Table = ( { list }: { list: TableList[] }) => {
         <div className="table">
           <div className="top-container">
             <div className="page-size-container">
-            <span>Page size:</span>
+            <span>Page size: </span>
             <select value={pageSize} onChange={handlePageSizeChange} className="form-input">
               <option value={10}>10</option>
               <option value={25}>25</option>
