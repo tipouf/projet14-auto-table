@@ -1,6 +1,6 @@
 {
   "name": "react-auto-table-ts",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A table component for react",
   "type": "module",
   "main": "./dist/main.cjs.js",
@@ -8,9 +8,9 @@
   "typings": "./dist/main.d.ts",
   "scripts": {
     "build": "tsc && vite build",
-    "build:watch": "tsc && vite build --watch",
     "dev": "vite",
-    "preview": "vite preview"
+    "start": "vite preview",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "react": "^18.3.1",

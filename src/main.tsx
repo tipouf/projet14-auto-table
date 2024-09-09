@@ -1,11 +1,9 @@
-import React from 'react'
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Table from './components/Table'
+import Table from './lib/Table'
+
+const App = () => <Table list={[]} />
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Table list={[]} />
-  </StrictMode>,
+  <App />
 )
 
