@@ -9,15 +9,15 @@
 
 ### For use package :
 
-import { Table }  from 'react-auto-table-ts'
+`import { Table }  from 'react-auto-table-ts'`
 
 
-<Table list={[]} />
+`<Table list={[]} />`
 
 
 ### Props example 
 
-[
+`[
   {
     "firstName": "Ava",
     "lastName": "Hall",
@@ -40,8 +40,9 @@ import { Table }  from 'react-auto-table-ts'
     "zipCode": "62523",
     "department": "Marketing"
   }
-]
+]`
 
-### result of the example :
+### 
+result of the example :
 
-![alt text](image.png)
+![alt text](https://github.com/tipouf/projet14-auto-table/blob/npm-autotable/image.png?raw=true)
