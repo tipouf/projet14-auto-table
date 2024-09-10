@@ -1,16 +1,14 @@
 {
   "name": "react-auto-table-ts",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A table component for react",
   "type": "module",
-  "main": "./dist/main.cjs.js",
-  "module": "./dist/main.es.js",
-  "typings": "./dist/main.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc && vite build",
     "dev": "vite",
-    "start": "vite preview",
-    "prepare": "npm run build"
+    "build": "tsc --p ./tsconfig.build.json && vite build --emptyOutDir",
+    "publish-library": "node ./scripts/publish"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -21,12 +19,15 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
+    "glob": "^11.0.0",
     "globals": "^15.9.0",
     "prettier": "^3.3.3",
     "tslib": "^2.7.0",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-plugin-dts": "^4.2.1",
+    "vite-plugin-lib-inject-css": "^2.1.1"
   },
   "peerDependencies": {
     "react": "^18.3.1",
@@ -48,5 +49,6 @@
     "typescript"
   ],
   "publishConfig": {
-    "access": "public"}
+    "access": "public"
+  }
 }

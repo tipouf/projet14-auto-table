@@ -7,7 +7,7 @@ type TableList = {
   
 type Order = { [key: string]: 'asc' | 'desc' | null };
   
-const Table = ( { list }: { list: TableList[] }) => {
+export const Table = ( { list }: { list: TableList[] }) => {
 
       const [order, setOrder] = useState<Order>(() => {
         const orderObj: Order = {};
@@ -129,5 +129,3 @@ const Table = ( { list }: { list: TableList[] }) => {
       )
     }
     
-
-export default Table
