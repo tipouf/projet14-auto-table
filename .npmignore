@@ -1,5 +1,8 @@
 # Exclude source files
 /src
+/script
+/lib
+
 
 # Exclude local configuration
 /.babelrc
@@ -21,3 +24,8 @@
 /npm-debug.log*
 /yarn-debug.log*
 /yarn-error.log*
+
+# Exclude root files except README and package.json
+/*
+!README.md
+!package.json
