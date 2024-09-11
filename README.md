@@ -46,3 +46,7 @@
 result of the example :
 
 ![alt text](https://github.com/tipouf/projet14-auto-table/blob/npm-autotable/image.png?raw=true)
+
+
+# SOON : possibility to customize the table
+
