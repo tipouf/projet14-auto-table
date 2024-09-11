@@ -4,7 +4,9 @@
 
 ### For install package use command :
 
-`npm i react-auto-table-ts`
+```bash
+npm i react-auto-table-ts
+```
 
 
 ### For use package :

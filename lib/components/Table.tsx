@@ -58,7 +58,16 @@ export const Table = ( { list }: { list: TableList[] }) => {
     
       const filteredList = tableList.filter((employee) => {
         return Object.values(employee).some((value) =>
-          String(value).toLowerCase().includes(search.toLowerCase())
+          String(value)
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .includes(
+              search
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+            )
         );
       });
     
@@ -92,7 +101,7 @@ export const Table = ( { list }: { list: TableList[] }) => {
                 <tr>
                   {Object.keys(order).map((key) => (
                     <th key={key} onClick={() => handleSort(key)} >
-                      {key.replace(/([A-Z])/g, ' $1').replace(/^./, match => match.toUpperCase())} {key === lastClickedKey ? (order[key] === 'asc' ? <span>&#9660;</span> : <span>&#9650;</span>) : <><span>&#9660;</span><span>&#9650;</span></>}
+                      {key.replace(/([A-Z])/g, ' $1').replace(/^./, match => match.toUpperCase())} {key === lastClickedKey ? (order[key] === 'asc' ? <><span>&#9660;</span><span className='disabled'>&#9650;</span></> : <><span className='disabled'>&#9660;</span><span>&#9650;</span></>) : <><span>&#9660;</span><span>&#9650;</span></>}
                     </th>
                   ))}
                 </tr>
@@ -113,6 +122,14 @@ export const Table = ( { list }: { list: TableList[] }) => {
               <span className="page-info">Page {currentPage} of {pageCount} - {tableList.length} items</span>
 
               <div className="page-number-container">
+                {currentPage > 1 && (
+                  <button
+                    className="previous"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                )}
                 {Array.from({ length: pageCount }, (_, index) => (
                   <button
                     key={index + 1}
@@ -122,6 +139,14 @@ export const Table = ( { list }: { list: TableList[] }) => {
                     {index + 1}
                   </button>
                 ))}
+                {currentPage < pageCount && (
+                  <button
+                    className="next"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                )}
               </div>
             </div>
           )}
