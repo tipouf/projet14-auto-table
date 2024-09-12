@@ -6,9 +6,28 @@ type TableList = {
 }
   
 type Order = { [key: string]: 'asc' | 'desc' | null };
-  
-export const Table = ( { list }: { list: TableList[] }) => {
 
+type columnsPropsType = {
+  displayHeader?: boolean
+  displaySearch?: boolean
+  displayPagination?: boolean
+  displayPageSize?: boolean
+  numberByPage?: [number?, number?, number?, number?, number?]
+}
+  
+export const Table = ( { list, extraProps = {} as columnsPropsType }: { list: TableList[], extraProps?: Partial<columnsPropsType> }) => {
+    const defaultExtraProps = {
+      displayHeader: true,
+      displaySearch: true,
+      displayPagination: true,
+      displayPageSize: true,
+      numberByPage: [10, 20, 50, 100]
+    };
+
+    const mergedExtraProps = { ...defaultExtraProps, ...extraProps };
+
+    const displayPageSize = mergedExtraProps.displayPagination ? mergedExtraProps.displayPageSize : false;
+    
       const [order, setOrder] = useState<Order>(() => {
         const orderObj: Order = {};
         if (list.length > 0) {
@@ -22,7 +41,7 @@ export const Table = ( { list }: { list: TableList[] }) => {
       const [tableList, setTableList] = useState<TableList[]>(list);
       const [search, setSearch] = useState<string>('');
       const [lastClickedKey, setLastClickedKey] = useState<string | null>(null);
-      const [pageSize, setPageSize] = useState<number>(10);
+      const [pageSize, setPageSize] = useState<number>(displayPageSize ? (mergedExtraProps.numberByPage[0]??10) : list.length);
       const [currentPage, setCurrentPage] = useState(1);
     
       const handleSort = (key: string) => {
@@ -76,24 +95,29 @@ export const Table = ( { list }: { list: TableList[] }) => {
       const endIndex = Math.min(startIndex + pageSize - 1, filteredList.length - 1);
       const currentPageList = filteredList.slice(startIndex, endIndex + 1);
     
-      const showNoResult = filteredList.length === 0;
+      const showResult = filteredList.length > 0;
     
       return (
         <div className="table">
+          {mergedExtraProps.displayHeader &&
           <div className="top-container">
+            {displayPageSize &&
             <div className="page-size-container">
             <span>Page size: </span>
             <select value={pageSize} onChange={handlePageSizeChange} className="form-input">
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
+              {mergedExtraProps.numberByPage?.map((number) => (
+                <option key={number} value={number}>
+                  {number}
+                </option>
+              ))}
             </select>
           </div>
-    
+}         {mergedExtraProps.displaySearch &&
           <input type="text" value={search} onChange={handleSearch} placeholder="Search" className="form-input search" />
+        }
           </div>
-          {showNoResult ? (
+          }
+          {!showResult ? (
             <p className="no-result">No result</p>
           ) : (
             <table>
@@ -101,7 +125,7 @@ export const Table = ( { list }: { list: TableList[] }) => {
                 <tr>
                   {Object.keys(order).map((key) => (
                     <th key={key} onClick={() => handleSort(key)} >
-                      {key.replace(/([A-Z])/g, ' $1').replace(/^./, match => match.toUpperCase())} {key === lastClickedKey ? (order[key] === 'asc' ? <><span>&#9660;</span><span className='disabled'>&#9650;</span></> : <><span className='disabled'>&#9660;</span><span>&#9650;</span></>) : <><span>&#9660;</span><span>&#9650;</span></>}
+                      {key.replace(/([A-Z])/g, ' $1').replace(/^./, match => match.toUpperCase())} {key === lastClickedKey ? (order[key] === 'asc' ? <><span>&#9660;</span><span className='disabled'>&#9650;</span></> : <><span className='disabled'>&#9660;</span><span>&#9650;</span></>) : <><span className='disabled'>&#9660;</span><span className='disabled'>&#9650;</span></>}
                     </th>
                   ))}
                 </tr>
@@ -117,7 +141,7 @@ export const Table = ( { list }: { list: TableList[] }) => {
               </tbody>
             </table>
           )}
-          {!showNoResult && (
+          {showResult && mergedExtraProps.displayPagination && (
             <div className="pagination-container">
               <span className="page-info">Page {currentPage} of {pageCount} - {tableList.length} items</span>
 
@@ -154,3 +178,4 @@ export const Table = ( { list }: { list: TableList[] }) => {
       )
     }
     
+
