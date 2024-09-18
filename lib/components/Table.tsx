@@ -143,7 +143,7 @@ export const Table = ( { list, extraProps = {} as columnsPropsType }: { list: Ta
           )}
           {showResult && mergedExtraProps.displayPagination && (
             <div className="pagination-container">
-              <span className="page-info">Page {currentPage} of {pageCount} - {tableList.length} items</span>
+              <span className="page-info">Page {currentPage} of {pageCount} - {filteredList.length ? filteredList.length : tableList.length} items</span>
 
               <div className="page-number-container">
                 {currentPage > 1 && (
