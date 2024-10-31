@@ -44,6 +44,7 @@ export const Table = ( { list, extraProps = {} as columnsPropsType }: { list: Ta
       const [pageSize, setPageSize] = useState<number>(displayPageSize ? (mergedExtraProps.numberByPage[0]??10) : list.length);
       const [currentPage, setCurrentPage] = useState(1);
     
+
       const handleSort = (key: string) => {
         const sortedList = [...tableList].sort((a, b) => {
           if (order[key] === 'asc') {
@@ -143,7 +144,7 @@ export const Table = ( { list, extraProps = {} as columnsPropsType }: { list: Ta
           )}
           {showResult && mergedExtraProps.displayPagination && (
             <div className="pagination-container">
-              <span className="page-info">Page {currentPage} of {pageCount} - {tableList.length} items</span>
+              <span className="page-info">Page {currentPage} of {pageCount} - {filteredList.length ? filteredList.length : tableList.length} items</span>
 
               <div className="page-number-container">
                 {currentPage > 1 && (
