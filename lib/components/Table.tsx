@@ -44,6 +44,7 @@ export const Table = ( { list, extraProps = {} as columnsPropsType }: { list: Ta
       const [pageSize, setPageSize] = useState<number>(displayPageSize ? (mergedExtraProps.numberByPage[0]??10) : list.length);
       const [currentPage, setCurrentPage] = useState(1);
     
+
       const handleSort = (key: string) => {
         const sortedList = [...tableList].sort((a, b) => {
           if (order[key] === 'asc') {

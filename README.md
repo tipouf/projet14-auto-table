@@ -20,6 +20,8 @@
 
 ---------------
 
+### Node 20 is recommended, Minimal node version 14.
+
 To install the package, use the following command:
 
 ```bash
